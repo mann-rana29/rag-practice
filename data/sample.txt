@@ -1,0 +1,103 @@
+================================================================================
+NEXUS GLOBAL ENTERPRISES: OPERATIONAL COMPLIANCE & TECHNICAL STANDARDS (v2026.4)
+================================================================================
+
+--------------------------------------------------------------------------------
+SECTION 1: CORPORATE TRAVEL AND REIMBURSEMENT POLICY
+--------------------------------------------------------------------------------
+1.1 Scope and Eligibility
+This policy applies to all full-time employees, contractors, and subsidiary personnel of Nexus Global Enterprises travelling on official company business. Official travel must be pre-approved by a Department Head at least 14 business days prior to departure for domestic travel, and 30 business days prior for international travel.
+
+1.2 Lodging and Daily Allowances (Per Diem)
+The company utilizes a tiered per diem system based on the destination city's cost of living index. 
+* Tier 1 Cities (e.g., New York, Tokyo, London, Zurich): Maximum lodging allowance is $350 USD per night. Daily meal allowance is $95 USD.
+* Tier 2 Cities (e.g., Chicago, Berlin, Sydney, Dubai): Maximum lodging allowance is $220 USD per night. Daily meal allowance is $70 USD.
+* Tier 3 Cities (All other locations): Maximum lodging allowance is $150 USD per night. Daily meal allowance is $50 USD.
+
+Exceptions to lodging maximums require written authorization from the Regional Finance Director. Itemized receipts are mandatory for all lodging expenses. Missing receipts for expenses over $25 USD will result in immediate forfeiture of reimbursement.
+
+1.3 Transportation Guidelines
+Employees must book the lowest available economy class fare for all flights under six (6) continuous hours of flight time. For international flights exceeding six continuous hours, premium economy may be selected. Business class travel is strictly restricted to Executive Vice Presidents (EVPs) and C-suite officers, or for flights exceeding eleven (11) continuous hours with multi-destination layovers. 
+
+Rental cars must be economy or compact class unless three or more employees are travelling together, in which case a standard SUV is authorized. Ground transportation via rideshare applications (e.g., Uber, Lyft) is fully reimbursable, excluding premium or luxury ride variants.
+
+--------------------------------------------------------------------------------
+SECTION 2: DATA RETENTION, SECURITY, AND PRIVACY FRAMEWORK
+--------------------------------------------------------------------------------
+2.1 Classification of Information
+Nexus Global Enterprises categorizes corporate data into four distinct classifications, each requiring specific handling protocols:
+1. Public (Level 4): Information cleared for unrestricted public distribution.
+2. Internal Only (Level 3): Information intended for employee consumption but low-risk if disclosed.
+3. Restricted (Level 2): Sensitive operational, financial, or personnel data. Requires multi-factor authentication (MFA) to access.
+4. Highly Confidential (Level 1): Proprietary source code, trade secrets, merger documentation, and unannounced financial results.
+
+2.2 Retention Schedules
+Data retention parameters are strictly governed by jurisdictional legal mandates and internal security policies. 
+* Routine Email Correspondence: Automatically purged after 730 days (2 years) from the date of sending or receipt, unless flagged for an active legal hold.
+* Financial Auditing Records: Retained for a mandatory period of 7 years (2,555 days) following the close of the respective fiscal year.
+* Employee Personnel Files: Maintained for 10 years following the date of formal separation or termination of employment.
+* System Access Logs: Maintained in cold storage for 180 days, then permanently overwritten.
+
+2.3 Security Incident Response Protocol (SIRP)
+In the event of a confirmed or suspected data breach involving Level 1 or Level 2 data, the discovering party must immediately initiate the following sequence:
+1. Isolation: Disconnect the affected hardware assets from the local network infrastructure. Do not power off the machine, as this destroys volatile RAM forensic data.
+2. Notification: File a critical ticket via the internal SecOps portal within fifteen (15) minutes of discovery.
+3. Triaging: The Incident Response Team (IRT) will evaluate the breach severity within one hour.
+4. Escalation: If Level 1 data is compromised, the Chief Information Security Officer (CISO) must notify the Board of Directors within 4 hours.
+
+--------------------------------------------------------------------------------
+SECTION 3: CLOUD INFRASTRUCTURE AND DEPLOYMENT ARCHITECTURE
+--------------------------------------------------------------------------------
+3.1 Core Architecture Standards
+All Nexus enterprise applications must be deployed using a cloud-native, microservices-based architecture spanning a minimum of three distinct Availability Zones (AZs) to ensure high availability and disaster recovery readiness. Single-AZ deployments are prohibited for production workloads.
+
+3.2 Compute and Containerization
+Docker is the standard containerization runtime. Kubernetes (specifically Amazon EKS) manages orchestration. 
+* Production Pod Auto-scaling Constraints: 
+  - Minimum Replica Count: 3 pods per service.
+  - Maximum Replica Count: 45 pods per service.
+  - Scale-out Trigger: CPU utilization exceeds 72% for a sustained duration of three (3) minutes.
+  - Scale-in Trigger: CPU utilization drops below 28% for a sustained duration of ten (10) minutes.
+
+3.3 Database Operations and Provisioning
+Production environments utilize fully managed PostgreSQL clusters. 
+* Storage Engine: Aurora Serverless v2.
+* Read Replicas: A minimum of two read replicas must be maintained in separate AZs.
+* Backup Windows: Automated daily snapshots occur between 02:00 UTC and 03:30 UTC. Retention for these snapshots is 35 days.
+* Encryption: All data at rest must be encrypted using AWS KMS keys rotated automatically every 365 days. Data in transit must strictly enforce TLS 1.3.
+
+--------------------------------------------------------------------------------
+SECTION 4: HARDWARE SPECIFICATIONS AND DATA CENTER OPERATIONS
+--------------------------------------------------------------------------------
+4.1 Server Blade Configurations (Standard Compute Nodes)
+Data Center deployment units rely on the Nexus Blade Server Gen-X9. Each individual unit conforms to the hardware profile below:
+* Processor: Dual AMD EPYC 9654 (96 Cores, 2.4 GHz per processor).
+* Memory: 1.5 TB ECC DDR5 RAM arranged in 24 x 64GB dimm configurations.
+* Storage: 4 x 3.84TB NVMe PCIe Gen5 SSDs configured in a hardware RAID 10 array.
+* Network: Quad-port 100GbE Mellanox ConnectX-6 NICs.
+
+4.2 Environmental Controls (HVAC and Power)
+Data centers are engineered to operate continuously without interruption.
+* Ambient Temperature: Maintained between 68°F and 71.6°F (20°C to 22°C).
+* Humidity: Maintained at a relative humidity (RH) of 45% to 50%.
+* Power Redundancy: True N+1 redundancy backed by dual Caterpillar 3516B diesel generators. The fuel reserves stored on-site are sized to maintain full data center operations at peak load for exactly 96 continuous hours.
+
+--------------------------------------------------------------------------------
+SECTION 5: CUSTOMER SERVICE SERVICE-LEVEL AGREEMENTS (SLA)
+--------------------------------------------------------------------------------
+5.1 Support Tiers and Response Windows
+Customer support requests are triaged into four distinct priority categories based on business impact:
+* Priority 1 (Critical): Total system outage preventing business operations for multiple customers. Response Time SLA: Under 15 minutes. Update Frequency: Every 30 minutes.
+* Priority 2 (High): Severe degradation of core functionality; workarounds exist but are inefficient. Response Time SLA: Under 2 hours. Update Frequency: Every 4 hours.
+* Priority 3 (Medium): Minor functional bugs or cosmetic issues not impacting core operations. Response Time SLA: Under 24 hours. Update Frequency: Every 48 hours.
+* Priority 4 (Low): Feature requests, documentation clarification, or general inquiries. Response Time SLA: Under 3 business days. Update Frequency: Weekly.
+
+5.2 Financial Penalty Penalties for Violations
+Failure to meet P1 or P2 SLAs over a calendar month triggers financial service credits applied to affected corporate customer accounts:
+* Monthly Uptime < 99.9%: 5% service credit.
+* Monthly Uptime < 99.5%: 15% service credit.
+* Monthly Uptime < 99.0%: 50% service credit.
+
+================================================================================
+END OF DOCUMENT
+================================================================================
